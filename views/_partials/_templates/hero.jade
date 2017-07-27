@@ -1,0 +1,36 @@
+mixin hero(data, type="image", fullscreen=true)
+  section(role="hero")
+    .hero-container(data-bg= data.src.img)
+      - var classname = (fullscreen) ? "is-fullscreen " : ""
+      - classname += (type != "image") ? "has-video" : ""
+      .layout(class=  classname)
+        +loadingSpinner
+        +insertVideo(data, type)
+        .body
+          +herotitle(data)
+          block
+
+mixin herotitle(data)
+  h1= data.title
+  if(data.client != null)
+    h4= data.caption
+  if(data.link != null)
+    a.is-link(href= data.link.url)= data.link.label
+
+mixin insertVideo(data, type)
+  if(type != "image")    
+    - var videoType = (data.video.type == "html") ? "is-html" : "is-vimeo"
+    - var classname = (data.video.max) ? `${videoType} is-max` : ""
+    .video-container(class= classname)
+      if(data.video.type == "html")
+        video(id="player" class="video-js is-disabled" loop="true" fluid="true" width="100%" height="100%" autoplay autobuffer preload)
+          source(src= data.src.video type="video/mp4")
+        .ios-play
+          .fa(class="fa-play")
+      if(data.video.type == "vimeo")
+        iframe#player.is-disabled(src= data.src.vimeo frameborder="0")
+
+mixin loadingSpinner()
+  .spinner.is-active
+    .block-outer
+    .block-inner

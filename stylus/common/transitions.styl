@@ -1,0 +1,51 @@
+/**
+ * Transitions
+ */
+
+[v-cloak]
+  display none
+
+.animated
+  animation-duration _speed--std
+
+/**
+ * Animations
+ */
+.transition-block
+  transition none !important
+
+anim(specific = all, speed = _speed)
+  transition specific speed
+
+@keyframes 'rotate'
+  0%
+    transform rotate(0deg)
+  100%
+    transform rotate(360deg)
+
+.spinner
+  position absolute
+  wh(80px,80px)
+  background white
+  border-radius 50%
+  transform translateX(calc(50vw - 40px))
+  top calc(80vh - 50% - 40px)
+  opacity 0
+  transition .5s opacity
+  .block-outer
+    position absolute
+    border-radius 50%
+    border 40px solid transparent
+    border-right 40px solid grey
+  .block-inner
+    position absolute
+    wh(70px,70px)
+    background black
+    border-radius 50%
+    transform translate(5px,5px)    
+  &.is-active
+    opacity 1
+    .block-outer
+      animation rotate 1s infinite linear
+  &.is-disabled
+    display none

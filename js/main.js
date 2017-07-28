@@ -40,7 +40,7 @@ function mount() {
 }
 
 function percentHeroVisible() {
-    return (state.mobile) ? 1 : isVisible(cache.$hero.getBoundingClientRect())
+    return isVisible(cache.$hero.getBoundingClientRect())
 }
 function setNavToggles(){
     // toggle nav menu
